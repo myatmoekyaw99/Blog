@@ -26,8 +26,8 @@ Route::get('/', function () {
 });
 Route::get('/contact',[ContactController::class,'contact']);
 Route::get('/blogs/{id}',function($id){
-    $findBlog = Blog::find($id);
-    return view('blogs',[
-        'blogs' => $findBlog
+    $blog = Blog::findOrFail($id);
+    return view('blog',[
+        'blog' => $blog
     ]);
 });

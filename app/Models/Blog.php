@@ -39,8 +39,18 @@ class Blog{
         return $blogs;
     }
     public static function find($id){
-        $blogs = Blog::all();
-        $foundBlogs = $blogs->where('id',$id);
+        $foundBlogs = static::all()->where('id','=',$id)->first();
+        // dd($foundBlogs);
         return $foundBlogs;
+    }
+
+    public static function findOrFail($id){
+
+        $blogs = static::find($id);
+        if(!$blogs){
+            abort(404);
+        }
+        // dd($blogs);
+        return $blogs;
     }
 }
