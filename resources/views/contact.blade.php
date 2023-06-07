@@ -1,4 +1,5 @@
 <x-layout>
+<x-slot name="link"><link rel="stylesheet" href="/css/app.css"></x-slot>
 <x-slot name="title">About</x-slot>
     <h1>Contact Info</h1>
     <div>
