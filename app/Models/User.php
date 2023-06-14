@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'username'
     ];
 
     /**
@@ -50,5 +51,14 @@ class User extends Authenticatable
     public  function getRouteKeyName()
     {
         return 'username';
+    }
+    
+    //  mutator
+    // public function setPasswordAttribute($value){
+    //     $this->attributes['password'] = bcrypt($value);
+    // }
+    // Accessor
+    public function getNameAttribute($value){
+        return ucfirst($value);
     }
 }

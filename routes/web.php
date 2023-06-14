@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
 use App\Models\Blog;
 use App\Models\Category;
@@ -22,27 +24,19 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 |
 */
 
-Route::get('/', function () {
-    // DB::listen(function($query){
-    //     logger($query->sql);
-    // });
-    return view('blogs',[
-        // 'blogs' => Blog::with('category','author')->get()
-        'blogs' => Blog::latest()->get(),
-        'categories' => Category::all()
-    ]);
-});
+Route::get('/',[BlogController::class,'index']);
 Route::get('/contact',[ContactController::class,'contact']);
+Route::get('/register',[AuthController::class,'index']);
+Route::post('/register',[AuthController::class,'storeUser']);
+Route::get('/login',[AuthController::class,'login']);
+Route::post('/login',[AuthController::class,'checkUser']);
+Route::post('/logout',[AuthController::class,'logout']);
+Route::get('/blogs/{blog}',[BlogController::class,'show']);
+
+
+
 
 // route model binding
-Route::get('/blogs/{blog}',function(Blog $blog){
-    // $blog = Blog::findOrFail($id); 
-    return view('blog',[
-        'blog' => $blog,
-        'randomBlogs' => Blog::inRandomOrder()->take(3)->get()
-    ]);
-});
-
 // Route::get('/blogs/{blog:slug}',function(Blog $blog){
 //     // $blog = Blog::where('slug',$slug)->first(); 
 //     return view('blog',[
@@ -50,14 +44,14 @@ Route::get('/blogs/{blog}',function(Blog $blog){
 //     ]);
 // });
 
-Route::get('/categories/{category:slug}',function(Category $category){
-    return view('blogs',[
-        'blogs' => $category->blogs,
-        // ->load('category','author')
-        'categories' => Category::all(),
-        'currentCategory' => $category
-    ]);
-});
+// Route::get('/categories/{category:slug}',function(Category $category){
+//     return view('blogs',[
+//         'blogs' => $category->blogs,
+//         // ->load('category','author')
+//         'categories' => Category::all(),
+//         'currentCategory' => $category
+//     ]);
+// });
 
 Route::get('/users/{user}',function(User $user){
     return view('blogs',[

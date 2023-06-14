@@ -25,4 +25,26 @@ class Blog extends Model
     {
         return 'slug';
     }
+
+    public function scopeFilter($query,$filters){
+        if($search=request('search')){
+           $query->where(function($query) use($search){
+                    $query->where('title','LIKE','%'.$search."%")
+                    ->orwhere('description','LIKE','%'.$search."%");
+           });
+        }           
+
+        if($search=request('category')){
+            $query->whereHas('category',function ($query) use($search){
+                $query->where('slug',$search);
+            });
+         }
+
+         if($search=request('author')){
+            $query->whereHas('author',function ($query) use($search){
+                $query->where('username',$search);
+            });
+         }
+
+    }
 }
