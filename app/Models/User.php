@@ -61,4 +61,7 @@ class User extends Authenticatable
     public function getNameAttribute($value){
         return ucfirst($value);
     }
+    public function getAvatarAttribute($value){
+        return $this->attributes['avatar'] ?? "https://i.pravatar.cc/300";
+     }
 }

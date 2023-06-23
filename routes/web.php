@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\VideoController;
 use App\Models\Blog;
 use App\Models\Category;
 use App\Models\User;
@@ -32,6 +34,10 @@ Route::get('/login',[AuthController::class,'login']);
 Route::post('/login',[AuthController::class,'checkUser']);
 Route::post('/logout',[AuthController::class,'logout']);
 Route::get('/blogs/{blog}',[BlogController::class,'show']);
+Route::post('/blogs/{blog}/comments',[CommentController::class,'store']);
+Route::get('/videos',[VideoController::class,'index']);
+Route::get('/videos/{video}',[VideoController::class,'show']);
+
 
 
 

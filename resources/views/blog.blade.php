@@ -8,19 +8,19 @@
             class="card-img-top"
             alt="..."
           />
-          <h3 class="my-3">{{$blog->itle}}</h3>
+          <h3 class="my-3">{{$blog->title}}</h3>
           <div>
             <div>Author - <a href="/?author={{$blog->author->username}}">{{$blog->author->name}}</a></div>
             <div><a href="/?category={{$blog->category->slug}}"><span class="badge bg-primary">{{$blog->category->name}}</span></a></div>
             <div class="text-secondary">{{$blog->created_at->diffForHumans()}}</div>
           </div>
           <p class="lh-md">
-          {{$blog->description}}
+          {{$blog->body}}
           </p>
         </div>
       </div>
     </div>
-
+    <x-comment :comments="$blog->comments" :blog="$blog"/>
     <!-- subscribe new blogs -->
     <x-subscribe/>
     <x-blog-you-may-like :randomBlogs="$randomBlogs"/>

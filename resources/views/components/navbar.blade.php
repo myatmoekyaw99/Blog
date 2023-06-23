@@ -9,6 +9,7 @@
           @auth
             <form action="/logout" method="POST">
               @csrf
+              <img src="{{auth()->user()->avatar}}" width="40" height="40" alt="profile" class="rounded-circle">
               <button type="submit" class="btn btn-primary">Logout</button>
             </form>
           @else
