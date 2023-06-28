@@ -9,6 +9,16 @@
             alt="..."
           />
           <h3 class="my-3">{{$blog->title}}</h3>
+          @auth
+          <form action="/blogs/{{$blog->slug}}/subscription" method="POST">
+            @csrf
+            @if($blog->isSubscribed())
+              <button type="submit" value="" class="btn btn-danger">Unsubscribe</button>
+            @else
+              <button type="submit" value="" class="btn btn-info">Subscribe</button>
+            @endif
+          </form>
+          @endauth
           <div>
             <div>Author - <a href="/?author={{$blog->author->username}}">{{$blog->author->name}}</a></div>
             <div><a href="/?category={{$blog->category->slug}}"><span class="badge bg-primary">{{$blog->category->name}}</span></a></div>

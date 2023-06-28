@@ -25,6 +25,22 @@ class Blog extends Model
         return $this->morphMany(Comment::class,'commentable');
     }
 
+    public function subscribedUsers(){
+        return $this->belongsToMany(User::class,'subscriptions','blog_id','user_id');
+    }
+
+    public function subscribe($userId = null){
+        return $this->subscribedUsers()->attach(['user_id' => $userId ?? auth()->id()]);
+    }
+
+    public function unsubscribe($userId = null){
+        return $this->subscribedUsers()->detach(['user_id' => $userId ?? auth()->id()]);
+    }
+
+    public function isSubscribed($userId = null){
+        return $this->subscribedUsers && $this->subscribedUsers->contains('id',$userId ?? auth()->id());
+    }
+
     public  function getRouteKeyName()
     {
         return 'slug';

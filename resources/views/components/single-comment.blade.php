@@ -1,5 +1,5 @@
 @props(['comment'])
-<div class="card p-3 shadow">
+<div class="card mb-2 p-3 shadow">
     <div class="d-flex">
         <div>
             <img src="{{$comment->author->avatar}}" width="40" height="40" class="rounded-circle"/>

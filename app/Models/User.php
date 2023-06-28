@@ -48,6 +48,10 @@ class User extends Authenticatable
         return $this->hasMany(Blog::class);
     }
 
+    public function subscribedBlogs(){
+        return $this->belongsToMany(Blog::class,'subscriptions','user_id','blog_id');
+    }
+
     public  function getRouteKeyName()
     {
         return 'username';

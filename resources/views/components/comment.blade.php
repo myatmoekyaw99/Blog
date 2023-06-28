@@ -1,5 +1,5 @@
 @props(['comments','blog'])
-@if($comments->count())
+<div class="container-fluid p-4" style="background-color: #fee;">
 <section class="container">
     <div class="col-md-8 mx-auto">
       <h5 class="text-secondary">Comments ({{$comments->count()}})</h5>
@@ -14,9 +14,10 @@
           </button>
       </form>
       @endauth
-      @foreach($comments as $comment)
+      @foreach($c = $blog->comments()->paginate(4) as $comment)
         <x-single-comment :comment="$comment"/>
       @endforeach
-    </div>    
+    </div>  
+{{$c->links()}}
 </section>
-@endif
+</div>

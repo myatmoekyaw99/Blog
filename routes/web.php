@@ -4,7 +4,10 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\VideoController;
+use App\Http\Middleware\AuthMiddleware;
+use App\Http\Middleware\GuestMiddleware;
 use App\Models\Blog;
 use App\Models\Category;
 use App\Models\User;
@@ -26,18 +29,35 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 |
 */
 
-Route::get('/',[BlogController::class,'index']);
-Route::get('/contact',[ContactController::class,'contact']);
-Route::get('/register',[AuthController::class,'index']);
-Route::post('/register',[AuthController::class,'storeUser']);
-Route::get('/login',[AuthController::class,'login']);
-Route::post('/login',[AuthController::class,'checkUser']);
-Route::post('/logout',[AuthController::class,'logout']);
-Route::get('/blogs/{blog}',[BlogController::class,'show']);
-Route::post('/blogs/{blog}/comments',[CommentController::class,'store']);
-Route::get('/videos',[VideoController::class,'index']);
-Route::get('/videos/{video}',[VideoController::class,'show']);
+Route::middleware(AuthMiddleware::class)->group(function(){
+    Route::get('/',[BlogController::class,'index']);
+    Route::get('/contact',[ContactController::class,'contact']);
+    Route::post('/logout',[AuthController::class,'logout']);
+    Route::get('/blogs/{blog}',[BlogController::class,'show']);
+    Route::post('/blogs/{blog}/comments',[CommentController::class,'store']);
+    Route::post('/blogs/{blog:slug}/subscription',[SubscriptionController::class,'toggleSubscribe']);
+});
 
+
+Route::middleware(GuestMiddleware::class)->group(function(){
+    Route::get('/register',[AuthController::class,'index']);
+    Route::post('/register',[AuthController::class,'storeUser']);
+    Route::get('/login',[AuthController::class,'login']);
+    Route::post('/login',[AuthController::class,'checkUser']);
+});
+
+// Route::get('/login',[AuthController::class,'login'])->middleware(GuestMiddleware::class);
+
+// Route::get('/users/{user}',function(User $user){
+//     return view('blogs',[
+//         'blogs' => $user->blogs,
+//         // ->load('category','author')
+//         'categories' => Category::all()
+//     ]);
+// });
+
+// Route::get('/videos',[VideoController::class,'index']);
+// Route::get('/videos/{video}',[VideoController::class,'show']);
 
 
 
@@ -59,10 +79,3 @@ Route::get('/videos/{video}',[VideoController::class,'show']);
 //     ]);
 // });
 
-Route::get('/users/{user}',function(User $user){
-    return view('blogs',[
-        'blogs' => $user->blogs,
-        // ->load('category','author')
-        'categories' => Category::all()
-    ]);
-});
