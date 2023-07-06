@@ -22,7 +22,8 @@ class Blog extends Model
     }
 
     public function comments(){
-        return $this->morphMany(Comment::class,'commentable');
+        // return $this->morphMany(Comment::class,'commentable');
+        return $this->hasMany(Comment::class);
     }
 
     public function subscribedUsers(){

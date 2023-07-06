@@ -24,12 +24,12 @@ class CommentCreatedListener
     public function handle(CommentCreated $event): void
     {
         //
-        $subscribers = $event->blog->subscribedUsers->filter(function ($user){
-            return $user->id !== auth()->id();
-        });
-        $subscribers->each(function ($user) use($event){
-            Mail::to($user->email)->queue(new SubscriberMail($event->comment,$user));
-        });
+        // $subscribers = $event->blog->subscribedUsers->filter(function ($user){
+        //     return $user->id !== auth()->id();
+        // });
+        // $subscribers->each(function ($user) use($event){
+        //     Mail::to($user->email)->queue(new SubscriberMail($event->comment,$user));
+        // });
 
     }
 }

@@ -6,6 +6,7 @@ use App\Models\Blog;
 use App\Models\Category;
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class BlogController extends Controller
 {
@@ -36,5 +37,39 @@ class BlogController extends Controller
             'randomBlogs' => Blog::inRandomOrder()->take(3)->get(),
             // 'comments' => Comment::all(),
         ]);
+    }
+
+    public function dashboard(){
+        return view('dashboard',[
+            'blogs' => Blog::all(),
+        ]);
+    }
+
+    public function create(){
+        return view('blogs.create',[
+            'categories' => Category::all(),
+        ]);
+    }
+
+    public function store(){
+    
+        $cleanData = request()->validate([
+            "title" => ['required'],
+            "slug" => ['required'],
+            "intro" => ['required'],
+            "category_id" => ['required', Rule::exists('id','categories')],
+            "description" => ['required'],
+        ]);
+
+        $cleanData['user_id'] = auth()->user()->id;
+        // dd($cleanData);
+        Blog::create($cleanData);
+        return back();
+    }
+
+    public function destroy(Blog $blog){
+        // dd('hit');
+        $blog->delete();
+        return back();
     }
 }

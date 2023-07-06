@@ -48,6 +48,10 @@ class User extends Authenticatable
         return $this->hasMany(Blog::class);
     }
 
+    public function role(){
+        return $this->belongsTo(Role::class);
+    }
+
     public function subscribedBlogs(){
         return $this->belongsToMany(Blog::class,'subscriptions','user_id','blog_id');
     }
@@ -65,7 +69,9 @@ class User extends Authenticatable
     public function getNameAttribute($value){
         return ucfirst($value);
     }
+
     public function getAvatarAttribute($value){
         return $this->attributes['avatar'] ?? "https://i.pravatar.cc/300";
-     }
+    }
+
 }

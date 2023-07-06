@@ -8,6 +8,7 @@ use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\VideoController;
 use App\Http\Middleware\AuthMiddleware;
 use App\Http\Middleware\GuestMiddleware;
+use App\Http\Middleware\MustBeAdmininMiddleware;
 use App\Models\Blog;
 use App\Models\Category;
 use App\Models\User;
@@ -45,6 +46,14 @@ Route::middleware(GuestMiddleware::class)->group(function(){
     Route::get('/login',[AuthController::class,'login']);
     Route::post('/login',[AuthController::class,'checkUser']);
 });
+
+Route::middleware(MustBeAdmininMiddleware::class)->group(function(){
+    Route::get('/admin/blogs/create',[BlogController::class,'create']);
+    Route::get('/admin',[BlogController::class,'dashboard']);
+    Route::post('/admin/blogs/store',[BlogController::class,'store']);
+    Route::delete('/admin/blogs/{blog:id}/delete',[BlogController::class,'destroy']);
+});
+
 
 // Route::get('/login',[AuthController::class,'login'])->middleware(GuestMiddleware::class);
 

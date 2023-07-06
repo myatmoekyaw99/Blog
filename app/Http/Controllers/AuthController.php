@@ -28,6 +28,7 @@ class AuthController extends Controller
             "name.min" => "name must be greater than 5 word",
         ]);
         
+        $cleanData['role_id'] = 2;
         $user = User::create($cleanData);
         return redirect('/login');
     }

@@ -7,6 +7,7 @@ namespace Database\Seeders;
 use App\Models\Blog;
 use App\Models\Category;
 use App\Models\Comment;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -31,6 +32,10 @@ class DatabaseSeeder extends Seeder
         $backend = Category::factory()->create([
             'name' => 'backend'
         ]);
+
+        Role::factory()->create(['keyword' => 'admin']);
+        Role::factory()->create(['keyword' => 'customer']);
+
 
         Blog::factory(2)->create(['category_id' =>$frontend->id]);
         Blog::factory(2)->create(['category_id' =>$backend->id]);

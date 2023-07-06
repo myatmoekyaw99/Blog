@@ -25,7 +25,7 @@ class CommentController extends Controller
         $commment = $blog->comments()->create($cleanData); //hasmany query instance obj
        
         // event(new CommentCreated());
-        CommentCreated::dispatch($commment,$blog);
+        // CommentCreated::dispatch($commment,$blog);
 
         return back();
     }
