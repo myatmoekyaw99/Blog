@@ -8,6 +8,8 @@ use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
+use function PHPUnit\Framework\isEmpty;
+
 class BlogController extends Controller
 {
     //
@@ -52,15 +54,17 @@ class BlogController extends Controller
     }
 
     public function store(){
-    
+        
         $cleanData = request()->validate([
             "title" => ['required'],
             "slug" => ['required'],
             "intro" => ['required'],
-            "category_id" => ['required', Rule::exists('id','categories')],
+            "category_id" => ['required', Rule::exists('categories','id')],
             "description" => ['required'],
         ]);
 
+        $path = request()->file('photo')->store('/images');
+        $cleanData['photo'] = $path;
         $cleanData['user_id'] = auth()->user()->id;
         // dd($cleanData);
         Blog::create($cleanData);
@@ -71,5 +75,46 @@ class BlogController extends Controller
         // dd('hit');
         $blog->delete();
         return back();
+    }
+
+    public function edit(Blog $blog){
+        // dd('hit');
+        return view('blogs.edit',[
+            'blog' => $blog,
+            'categories' => Category::all(),
+        ]);
+    }
+
+    public function update(Blog $blog){
+        // dd(request()->all());
+        $cleanData = request()->validate([
+            "title" => ['required'],
+            "slug" => ['required'],
+            "intro" => ['required'],
+            "photo" => ['nullable'],
+            "category_id" => ['required', Rule::exists('categories','id')],
+            "description" => ['required'],
+        ]);
+
+        if(!isEmpty('photo')){
+            $cleanData['photo'] = request()->file('photo')->store('/images');
+        }else{
+            $cleanData['photo'] = request('old');
+        }
+        $cleanData['user_id'] = auth()->user()->id;
+
+        $resource = Blog::findOrFail($blog->id);
+        $resource['title'] = $cleanData['title'];
+        $resource['slug'] = $cleanData['slug'];
+        $resource['intro'] = $cleanData['intro'];
+        $resource['description'] = $cleanData['description'];
+        $resource['photo'] = $cleanData['photo'];
+        $resource['category_id'] = $cleanData['category_id'];
+        $resource['user_id'] = $cleanData['user_id'];
+        
+        // dd($resource);
+        $resource->save();
+
+        return redirect('/admin')->with('success', 'Blog updated successfully.');
     }
 }

@@ -30,7 +30,7 @@ class AuthController extends Controller
         
         $cleanData['role_id'] = 2;
         $user = User::create($cleanData);
-        return redirect('/login');
+        return redirect('/');
     }
 
     public function checkUser(){

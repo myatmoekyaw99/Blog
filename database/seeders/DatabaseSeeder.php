@@ -37,8 +37,11 @@ class DatabaseSeeder extends Seeder
         Role::factory()->create(['keyword' => 'customer']);
 
 
-        Blog::factory(2)->create(['category_id' =>$frontend->id]);
-        Blog::factory(2)->create(['category_id' =>$backend->id]);
+        Blog::factory(2)->create([
+            'category_id' =>$frontend->id,
+            'photo' => 'images/berlin.jpg',
+    ]);
+        Blog::factory(2)->create(['category_id' =>$backend->id, 'photo' => 'images/lisbon-3.jpg']);
 
         // Comment::factory()->create();
 

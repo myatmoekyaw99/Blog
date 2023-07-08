@@ -51,7 +51,9 @@ Route::middleware(MustBeAdmininMiddleware::class)->group(function(){
     Route::get('/admin/blogs/create',[BlogController::class,'create']);
     Route::get('/admin',[BlogController::class,'dashboard']);
     Route::post('/admin/blogs/store',[BlogController::class,'store']);
+    Route::post('/admin/blogs/{blog:id}/edit',[BlogController::class,'edit']);
     Route::delete('/admin/blogs/{blog:id}/delete',[BlogController::class,'destroy']);
+    Route::put('/admin/blogs/{blog:id}/update',[BlogController::class,'update']);
 });
 
 

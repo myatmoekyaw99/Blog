@@ -1,4 +1,4 @@
-<div class="bg-dark text-white p-5">
+<div class="text-white p-2 mb-0" style="background-color: #2C3A47;">
       <footer class="py-3">
         <ul class="nav justify-content-center">
           <li class="nav-item">
@@ -13,4 +13,4 @@
         </ul>
         <p class="text-center">&copy; 2021 Blogs By creativecoder, Inc</p>
       </footer>
-    </div>
+</div>

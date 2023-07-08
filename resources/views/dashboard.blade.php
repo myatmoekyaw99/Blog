@@ -1,5 +1,14 @@
 <x-admin-layout>
+    @if(session('success'))
+        <div class="alert alert-success">{{session('success')}}</div>
+    @endif
     <h1 class="mt-3">Dashboard</h1>
+    <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+        <!-- <div class="card-header">Blog</div> -->
+        <div class="card-body">
+            <p class="card-text">Total Blog - {{$blogs->count()}}</p>
+        </div>
+    </div>
     <table class="table">
         <thead>
             <tr>
@@ -20,7 +29,6 @@
             <td>
                 <form action="/admin/blogs/{{$blog->id}}/edit" method="POST">
                     @csrf
-                    @method('put')
                     <button class="btn btn-warning">Edit</button>
                 </form>
             </td>
