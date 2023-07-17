@@ -3,6 +3,9 @@
       <div class="container">
         <a class="navbar-brand " href="/">Creative Coder</a>
         <div class="d-flex">
+          @can('admin')
+          <a href="/admin" class="nav-link text-white">Dashboard</a>
+          @endcan
           <a href="/" class="nav-link text-white">Home</a>
           <a href="/#blogs" class="nav-link text-white">Blogs</a>
           <a href="#subscribe" class="nav-link text-white">Subscribe</a>

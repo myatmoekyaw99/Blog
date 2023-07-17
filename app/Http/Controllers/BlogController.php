@@ -5,14 +5,21 @@ namespace App\Http\Controllers;
 use App\Models\Blog;
 use App\Models\Category;
 use App\Models\Comment;
+use Illuminate\Auth\Access\Gate;
+use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate as FacadesGate;
 use Illuminate\Validation\Rule;
 
 use function PHPUnit\Framework\isEmpty;
 
 class BlogController extends Controller
 {
-    //
+    // public function __construct(){
+    //     $this->middleware('can:admin')->only('dashboard');
+    //     $this->middleware('can:admin')->except('dashboard');
+    // }
+
     public function index() {
         // DB::listen(function($query){
         //     logger($query->sql);
@@ -42,6 +49,9 @@ class BlogController extends Controller
     }
 
     public function dashboard(){
+        // dd(request('auth'));
+        $this->authorize('admin');
+        // dd(FacadesGate::allows('admin'));
         return view('dashboard',[
             'blogs' => Blog::all(),
         ]);
