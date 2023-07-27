@@ -10,7 +10,7 @@ class ContactController extends Controller
         // var_dump('helloworld');
         // dd("helloworld");
         $name="myat moe kyaw";
-        $job = "developer";
+        // $job = "developer";
         $email = "myatmoekyaw@gmail.com";
         $phone = "09-998998899";
         // return ['name' => 'myat moe'];
@@ -19,7 +19,7 @@ class ContactController extends Controller
         // ]);
         return view('contact',[
             'name' => $name,
-            'job' => $job,
+            // 'job' => $job,
             'email' => $email,
             'phone' => $phone
         ]);

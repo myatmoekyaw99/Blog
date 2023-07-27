@@ -22,7 +22,7 @@
     <x-blogs-section 
         :blogs="$blogs"
         />
-    <x-subscribe/>
+    <!-- <x-subscribe/> -->
 </x-layout>
    
 

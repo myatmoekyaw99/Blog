@@ -1,14 +1,19 @@
 <x-layout>
-<x-slot name="link"><link rel="stylesheet" href="/css/app.css"></x-slot>
-<x-slot name="title">About</x-slot>
-    <h1>Contact Info</h1>
-    <div>
-        <p>{{$name}}</p>
-        <p>{{$job}}</p>
-        <p>{{$email}}</p>
-        <p>{{$phone}}</p>
+    <div class="container-fluid bg-dark">
+        <div class="row ">
+            <div class="col-md-6 mx-auto">
+                <div class="card my-3">
+                    <img src="/images/a.jpeg" class="card-img-top" width="50%" height="auto" alt="...">
+                    <div class="card-body">
+                        <h4 class="card-title text-center">Contact Info</h4>
+                        <p class="card-text text-center">Name : {{$name}}</p>
+                        <p class="card-text text-center">Email : {{$email}}</p>
+                        <p class="card-text text-center">Phone : {{$phone}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <img src="/images/a.jpeg">
     <!-- <script src="/js/app.js"></script> -->
 </x-layout>
     

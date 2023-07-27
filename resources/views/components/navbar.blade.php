@@ -8,7 +8,7 @@
           @endcan
           <a href="/" class="nav-link text-white">Home</a>
           <a href="/#blogs" class="nav-link text-white">Blogs</a>
-          <a href="#subscribe" class="nav-link text-white">Subscribe</a>
+          <a href="/contact" class="nav-link text-white">Contact</a>
           @auth
             <form action="/logout" method="POST">
               @csrf
